@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import entitys.Categoria;
 import entitys.Unidade;
 import services.UnidadeService;
 
@@ -51,7 +52,7 @@ public class UnidadeController {
 	public String updateForm(@PathVariable Long id, ModelMap map) {
 		Unidade unidade = uService.findId(id);
 		map.addAttribute("unidade", unidade);
-		return "unidade/cadUnidade";
+		return "unidade/unidadeCadastro";
 	}
 
 	@RequestMapping(value = "{id}/altFormCadastro", method = RequestMethod.GET)
@@ -65,5 +66,14 @@ public class UnidadeController {
 	public String remove(@PathVariable Long id, ModelMap map) {
 		uService.remove(new Unidade(id));
 		return "redirect:/unidade/listUnidades";
+	}
+
+	@RequestMapping(value = "filtrar", method = RequestMethod.GET)
+	public String filtrar(@ModelAttribute("filtro") Unidade filtro, ModelMap map) {
+
+		List<Unidade> unidades = uService.buscar(filtro);
+		map.addAttribute("unidades", unidades);
+		map.addAttribute("filtro", filtro);
+		return "unidade/unidadesLista";
 	}
 }

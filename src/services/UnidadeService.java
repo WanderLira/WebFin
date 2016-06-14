@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import daos.UnidadeDao;
+import entitys.Categoria;
 import entitys.Unidade;
 
 @Service
@@ -33,5 +34,9 @@ public class UnidadeService {
 
 	public void remove(Unidade cardapio) {
 		uDao.remover(cardapio);
+	}
+	
+	public List<Unidade> buscar(Unidade filtro) {
+		return uDao.filtrar(filtro);
 	}
 }
